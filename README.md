@@ -15,6 +15,10 @@ To implement and evaluate a Decision Tree model to classify tumors as benign or 
 4. 
 
 ## Program:
+```.c
+Program to  implement a Decision Tree model for tumor classification.
+Developed by:sri gokul venkat M
+RegisterNumber:  212224040320
 #Import necessary libraries
 
 import pandas as pd
