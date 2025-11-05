@@ -15,16 +15,71 @@ To implement and evaluate a Decision Tree model to classify tumors as benign or 
 4. 
 
 ## Program:
-```
-/*
-Program to  implement a Decision Tree model for tumor classification.
-Developed by: 
-RegisterNumber:  
-*/
-```
+#Import necessary libraries
 
+import pandas as pd
+
+from sklearn.model_selection import train_test_split
+
+from sklearn.tree import DecisionTreeClassifier
+
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+import seaborn as sns
+
+import matplotlib.pyplot as plt
+
+#Step 1: Data Loading
+
+data=pd.read_csv("/tumor.csv")
+
+#Step 2: Data Exploration
+print(data.head())
+print(data.columns)
+
+#Step 3: Select features and target variable
+
+#Drop id and other non-feature columns, using diagnosis as the target
+x=data.drop(columns=['Class']) # Remove any irrelevant coluses like to
+y=data['Class'] # The target column indicating benign or salignant diagonis
+
+#Step 4: Data Splitting
+
+X_train, x_test, y_train, y_test=train_test_split(x, y, test_size=0.3, random_state=42)
+#Step 5: Model Training
+
+#Initialize and train the Decision Tree Classifier
+
+model=DecisionTreeClassifier(random_state=42)
+
+model.fit(X_train, y_train)
+
+#Step 6: Model Evaluation
+
+#Predicting on the test set
+
+y_pred=model.predict(x_test)
+#Calculate accuracy and print classification metrics
+
+accuracy=accuracy_score(y_test, y_pred)
+
+print("Accuracy:", accuracy)
+
+print("Classification Report:\n", classification_report(y_test, y_pred))
+
+conf_matrix =confusion_matrix(y_test, y_pred)
+
+sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues")
+
+plt.xlabel("Predicted")
+
+plt.ylabel("Actual")
+
+plt.title("Confusion Matrix")
+
+plt.show()
 ## Output:
-![simple linear regression model for predicting the marks scored](sam.png)
+<img width="848" height="801" alt="machine exp2 output" src="https://github.com/user-attachments/assets/9c6e25e1-aa65-44ce-96af-c85ac7a88c2a" />
 
 
 ## Result:
