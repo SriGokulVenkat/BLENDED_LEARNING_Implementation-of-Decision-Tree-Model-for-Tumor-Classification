@@ -9,81 +9,81 @@ To implement and evaluate a Decision Tree model to classify tumors as benign or 
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. 
-2. 
-3. 
-4. 
+
+1. Import Libraries
+Import pandas, scikit-learn, seaborn, and matplotlib for data handling, modeling, and visualization.
+2. Load Dataset
+Load the dataset from the provided URL and explore its structure.
+3. Feature Selection
+Define features (X) by excluding irrelevant columns like id and set diagnosis as the target (y).
+4. Split Dataset
+Split the data into training and testing sets (70-30 ratio).
+5. Train Model
+Train a Decision Tree Classifier on the training data.
+6. Evaluate Model
+Predict using the test set and calculate accuracy, generate a classification report, and confusion matrix.
+7. Visualize Results
+Plot a heatmap of the confusion matrix to assess prediction performance.
 
 ## Program:
-```.c
+```
 Program to  implement a Decision Tree model for tumor classification.
-Developed by:sri gokul venkat M
-RegisterNumber:  212224040320
-#Import necessary libraries
-
+Developed by: sri gokul venkat M
+RegisterNumber:  212224040324
+*/
+# Import necessary libraries
 import pandas as pd
-
 from sklearn.model_selection import train_test_split
-
 from sklearn.tree import DecisionTreeClassifier
-
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-
 import seaborn as sns
-
 import matplotlib.pyplot as plt
 
-#Step 1: Data Loading
+# Step 1: Data Loading
+url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBM-ML241EN-SkillsNetwork/labs/datasets/tumor.csv"
+data = pd.read_csv(url)
 
-data=pd.read_csv("/tumor.csv")
-
-#Step 2: Data Exploration
+# Step 2: Data Exploration
+# Display the first few rows and column names for verification
 print(data.head())
 print(data.columns)
 
-#Step 3: Select features and target variable
+# Step 3: Feature Selection
+# Assume that the 'diagnosis' column is the target, with other columns as features
+# Drop 'id' and any unrelated columns
+X = data.drop(columns=['id', 'diagnosis'])  # Adjust if there are any other non-feature columns
+y = data['diagnosis']  # 'diagnosis' column indicates benign or malignant
 
-#Drop id and other non-feature columns, using diagnosis as the target
-x=data.drop(columns=['Class']) # Remove any irrelevant coluses like to
-y=data['Class'] # The target column indicating benign or salignant diagonis
+# Step 4: Data Splitting
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-#Step 4: Data Splitting
-
-X_train, x_test, y_train, y_test=train_test_split(x, y, test_size=0.3, random_state=42)
-#Step 5: Model Training
-
-#Initialize and train the Decision Tree Classifier
-
-model=DecisionTreeClassifier(random_state=42)
-
+# Step 5: Model Training
+# Initialize and train the Decision Tree Classifier
+model = DecisionTreeClassifier(random_state=42)
 model.fit(X_train, y_train)
 
-#Step 6: Model Evaluation
+# Step 6: Model Evaluation
+# Predicting on the test set
+y_pred = model.predict(X_test)
 
-#Predicting on the test set
-
-y_pred=model.predict(x_test)
-#Calculate accuracy and print classification metrics
-
-accuracy=accuracy_score(y_test, y_pred)
-
+# Calculate accuracy and print classification metrics
+accuracy = accuracy_score(y_test, y_pred)
 print("Accuracy:", accuracy)
-
 print("Classification Report:\n", classification_report(y_test, y_pred))
 
-conf_matrix =confusion_matrix(y_test, y_pred)
-
+# Confusion Matrix
+conf_matrix = confusion_matrix(y_test, y_pred)
 sns.heatmap(conf_matrix, annot=True, fmt="d", cmap="Blues")
-
 plt.xlabel("Predicted")
-
 plt.ylabel("Actual")
-
 plt.title("Confusion Matrix")
-
 plt.show()
+```
+
 ## Output:
-<img width="848" height="801" alt="machine exp2 output" src="https://github.com/user-attachments/assets/9c6e25e1-aa65-44ce-96af-c85ac7a88c2a" />
+<img width="1037" height="500" alt="Screenshot 2025-11-12 134725" src="https://github.com/user-attachments/assets/9b1866fb-744b-4387-b08f-52e1df73b347" />
+
+<img width="1025" height="584" alt="Screenshot 2025-11-12 134735" src="https://github.com/user-attachments/assets/64ec0353-0c7b-433b-ae11-f61a2b19783c" />
 
 
 ## Result:
